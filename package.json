@@ -1,0 +1,26 @@
+{
+  "name": "move",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest --coverage --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DreyWesson/watch-position.git"
+  },
+  "keywords": [],
+  "author": "dreywesson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DreyWesson/watch-position/issues"
+  },
+  "homepage": "https://github.com/DreyWesson/watch-position#readme",
+  "devDependencies": {
+    "jest": "^25.5.1"
+  },
+  "dependencies": {
+    "particles.js": "^2.0.0"
+  }
+}

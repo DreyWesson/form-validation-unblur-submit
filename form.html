@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+    <!-- <script src="https://use.fontawesome.com/452f630948.js"></script> -->
+
+    <link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.css" />
+    <link rel="stylesheet" href="./form.css" />
+  </head>
+  <body id="particles-js">
+    <div class="container">
+      <div class="header">
+        <h2>Create Account</h2>
+      </div>
+      <form action="./welcome-page.html" class="form" id="form">
+        <div class="form-control">
+          <label for="">Username</label>
+          <input
+            type="text"
+            placeholder="Username"
+            id="username"
+            autocomplete="username"
+          />
+          <i class="fa fa-check-circle"></i>
+          <i class="fa fa-exclamation-circle"></i>
+          <small>Error message</small>
+        </div>
+
+        <div class="form-control">
+          <label for="">Email</label>
+          <input
+            type="email"
+            placeholder="Username@gmail.com"
+            id="email"
+            autocomplete="email"
+          />
+          <i class="fa fa-check-circle"></i>
+          <i class="fa fa-exclamation-circle"></i>
+          <small>Error message</small>
+        </div>
+
+        <div class="form-control">
+          <label for="">Password</label>
+          <input
+            type="password"
+            placeholder="Password"
+            id="password1"
+            autocomplete="password"
+          />
+          <i class="fa fa-check-circle"></i>
+          <i class="fa fa-exclamation-circle"></i>
+          <small>Error message</small>
+        </div>
+
+        <div class="form-control">
+          <label for="">Password</label>
+          <input
+            type="password"
+            placeholder="Confirm password"
+            id="password2"
+            autocomplete="password"
+          />
+          <i class="fa fa-check-circle"></i>
+          <i class="fa fa-exclamation-circle"></i>
+          <small>Error message</small>
+        </div>
+        <button>SUBMIT</button>
+      </form>
+    </div>
+    <script src="./form.js"></script>
+    <!-- <script src="./formRethink.js"></script> -->
+  </body>
+</html>
