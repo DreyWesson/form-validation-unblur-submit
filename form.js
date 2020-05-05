@@ -15,11 +15,11 @@ password2.addEventListener("blur", validatePassword2);
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  isValid();
+  submitForm();
 });
 
-function isValid() {
-  validateAllOnSubmit();
+function submitForm() {
+  // validateAllOnSubmit();
   if (!validateAllOnSubmit()) return;
   else return form.submit();
 }
@@ -43,34 +43,33 @@ function validateAllOnSubmit() {
 
 function validateUsername() {
   usernameValue = username.value.trim();
-
-  if (usernameValue == "") setErrorFor(username, "Username cannot be blank");
+  if (usernameValue == "")
+    setErrorMessage(username, "Username cannot be blank");
   else {
-    setSuccessFor(username);
+    setSuccessMessage(username);
     return true;
   }
 }
 
 function validateEmail() {
   emailValue = email.value.trim();
-
-  if (emailValue === "") setErrorFor(email, "Email can't be blank");
+  if (emailValue === "") setErrorMessage(email, "Email can't be blank");
   else if (!regexValidator(emailPattern, emailValue))
-    setErrorFor(email, "Enter a valid email");
+    setErrorMessage(email, "Enter a valid email");
   else {
-    setSuccessFor(email);
+    setSuccessMessage(email);
     return true;
   }
 }
 
 function validatePassword1() {
   password1Value = password1.value.trim();
-
-  if (password1Value == "") setErrorFor(password1, "Password cannot be blank");
+  if (password1Value == "")
+    setErrorMessage(password1, "Password cannot be blank");
   else if (!regexValidator(passwordPattern, password1Value))
-    setErrorFor(password1, "Your password is too weak");
+    setErrorMessage(password1, "Your password is too weak");
   else {
-    setSuccessFor(password1);
+    setSuccessMessage(password1);
     return true;
   }
 }
@@ -78,34 +77,30 @@ function validatePassword1() {
 function validatePassword2() {
   password1Value = password1.value.trim();
   password2Value = password2.value.trim();
-
-  if (password2Value == "") setErrorFor(password2, "Password cannot be blank");
+  if (password2Value == "")
+    setErrorMessage(password2, "Password cannot be blank");
   else if (!regexValidator(passwordPattern, password2Value))
-    setErrorFor(password2, "Your password is too weak");
+    setErrorMessage(password2, "Your password is too weak");
   else if (password2Value != password1Value)
-    setErrorFor(password2, "Password doesn't match");
+    setErrorMessage(password2, "Password doesn't match");
   else {
-    setSuccessFor(password2);
+    setSuccessMessage(password2);
     return true;
   }
 }
 
 function regexValidator(pattern, input) {
-  console.log(pattern.test(input));
   return pattern.test(input);
 }
 
-function setErrorFor(input, message) {
-  const formControl = input.parentElement; //.form-control
+function setErrorMessage(input, message) {
+  const formControl = input.parentElement;
   const small = formControl.querySelector("small");
-  // Add error message inside small tag
   small.innerText = message;
-  // add error class
   formControl.className = "form-control error";
 }
 
-function setSuccessFor(input) {
-  const formControl = input.parentElement; //.form-control
-  // add success class
+function setSuccessMessage(input) {
+  const formControl = input.parentElement;
   formControl.className = "form-control success";
 }
