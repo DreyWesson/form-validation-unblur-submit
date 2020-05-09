@@ -44,7 +44,7 @@ function validateAllOnSubmit() {
 function validateUsername() {
   usernameValue = username.value.trim();
   if (usernameValue == "")
-    setErrorMessage(username, "Username cannot be blank");
+    setErrorMessage(username, "Username cannot be blank", "username-error");
   else {
     setSuccessMessage(username);
     return true;
@@ -53,9 +53,10 @@ function validateUsername() {
 
 function validateEmail() {
   emailValue = email.value.trim();
-  if (emailValue === "") setErrorMessage(email, "Email can't be blank");
+  if (emailValue === "")
+    setErrorMessage(email, "Email can't be blank", "email-error");
   else if (!regexValidator(emailPattern, emailValue))
-    setErrorMessage(email, "Enter a valid email");
+    setErrorMessage(email, "Enter a valid email", "email-error");
   else {
     setSuccessMessage(email);
     return true;
@@ -65,9 +66,9 @@ function validateEmail() {
 function validatePassword1() {
   password1Value = password1.value.trim();
   if (password1Value == "")
-    setErrorMessage(password1, "Password cannot be blank");
+    setErrorMessage(password1, "Password cannot be blank", "password-error");
   else if (!regexValidator(passwordPattern, password1Value))
-    setErrorMessage(password1, "Your password is too weak");
+    setErrorMessage(password1, "Your password is too weak", "password-error");
   else {
     setSuccessMessage(password1);
     return true;
@@ -78,11 +79,23 @@ function validatePassword2() {
   password1Value = password1.value.trim();
   password2Value = password2.value.trim();
   if (password2Value == "")
-    setErrorMessage(password2, "Password cannot be blank");
+    setErrorMessage(
+      password2,
+      "Password cannot be blank",
+      "confirm-password-error"
+    );
   else if (!regexValidator(passwordPattern, password2Value))
-    setErrorMessage(password2, "Your password is too weak");
+    setErrorMessage(
+      password2,
+      "Your password is too weak",
+      "confirm-password-error"
+    );
   else if (password2Value != password1Value)
-    setErrorMessage(password2, "Password doesn't match");
+    setErrorMessage(
+      password2,
+      "Password doesn't match",
+      "confirm-password-error"
+    );
   else {
     setSuccessMessage(password2);
     return true;
@@ -93,14 +106,53 @@ function regexValidator(pattern, input) {
   return pattern.test(input);
 }
 
-function setErrorMessage(input, message) {
+function setErrorMessage(input, message, errorType) {
   const formControl = input.parentElement;
   const small = formControl.querySelector("small");
-  small.innerText = message;
-  formControl.className = "form-control error";
+  const inputTag = formControl.querySelector("input");
+  // const id = small.getAttribute("id");
+  // console.log(id);
+
+  if (errorType) small.removeAttribute(errorType);
+
+  if (message) {
+    small.innerText = message;
+    formControl.className = "form-control error";
+    inputTag.setAttribute("aria-invalid", "true");
+    inputTag.setAttribute("aria-describedby", errorType);
+    small.setAttribute("aria-hidden", "false");
+    small.setAttribute("role", "alert");
+    small.setAttribute("id", errorType);
+  }
 }
 
 function setSuccessMessage(input) {
   const formControl = input.parentElement;
+  const small = formControl.querySelector("small");
+  const inputTag = formControl.querySelector("input");
+
   formControl.className = "form-control success";
+  inputTag.setAttribute("aria-invalid", "false");
+  inputTag.setAttribute("aria-describedby", "");
+  small.setAttribute("aria-hidden", "true");
 }
+
+//Focus ring: Implementation to prevent default browser style
+function handleFirstTab(e) {
+  if (e.keyCode === 9) {
+    // the "I am a keyboard user" key
+    document.body.classList.add("user-is-tabbing");
+    window.removeEventListener("keydown", handleFirstTab);
+  }
+}
+
+window.addEventListener("keydown", handleFirstTab);
+
+function handleMouseDownOnce() {
+  document.body.classList.remove("user-is-tabbing");
+
+  window.removeEventListener("mousedown", handleMouseDownOnce);
+  window.addEventListener("keydown", handleFirstTab);
+}
+
+window.addEventListener("keydown", handleFirstTab);
