@@ -81,7 +81,7 @@ function validatePassword2() {
   if (password2Value == "")
     setErrorMessage(
       password2,
-      "Password cannot be blank",
+      "Please confirm your password",
       "confirm-password-error"
     );
   else if (!regexValidator(passwordPattern, password2Value))
@@ -102,26 +102,31 @@ function validatePassword2() {
   }
 }
 
-function regexValidator(pattern, input) {
-  return pattern.test(input);
-}
+const regexValidator = (pattern, input) => pattern.test(input);
+
+// const appropriateAttribute = (handle, attributeName, value) => {
+//   handle.setAttribute(attributeName, value);
+// };
 
 function setErrorMessage(input, message, errorType) {
   const formControl = input.parentElement;
   const small = formControl.querySelector("small");
   const inputTag = formControl.querySelector("input");
-  // const id = small.getAttribute("id");
-  // console.log(id);
 
   if (errorType) small.removeAttribute(errorType);
 
   if (message) {
     small.innerText = message;
     formControl.className = "form-control error";
+    // appropriateAttribute(inputTag, "aria-invalid", "true");
+    // appropriateAttribute(small, "aria-hidden", "false");
+    // appropriateAttribute(inputTag, "aria-describedby", errorType);
+    // appropriateAttribute(small, "id", errorType);
+    // appropriateAttribute(small, "role", "alert");
     inputTag.setAttribute("aria-invalid", "true");
-    inputTag.setAttribute("aria-describedby", errorType);
     small.setAttribute("aria-hidden", "false");
     small.setAttribute("role", "alert");
+    inputTag.setAttribute("aria-describedby", errorType);
     small.setAttribute("id", errorType);
   }
 }
@@ -132,6 +137,10 @@ function setSuccessMessage(input) {
   const inputTag = formControl.querySelector("input");
 
   formControl.className = "form-control success";
+  // appropriateAttribute(inputTag, "aria-invalid", "false");
+  // appropriateAttribute(inputTag, "aria-describedby", "");
+  // appropriateAttribute(small, "aria-hidden", "true");
+
   inputTag.setAttribute("aria-invalid", "false");
   inputTag.setAttribute("aria-describedby", "");
   small.setAttribute("aria-hidden", "true");
